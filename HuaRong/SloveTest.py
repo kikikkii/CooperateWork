@@ -27,7 +27,7 @@ class Solution(object):
         start = tuple(itertools.chain(*board))
         #target = tuple([*range(1, R * C)] + [0])
         target = tuple([*range(1, R * C + 1)])
-        #target_wrong = tuple([*range(1, R*C-2)] + [R*C-1, R*C-2, 0])
+        target_wrong = tuple([*range(0, R*C-3)] + [R*C-3, R*C-1, R*C-2])
         operations = ""
         pq = [(0, 0, start, start.index(self.zero_num),operations)]
         cost = {start: 0}
@@ -50,7 +50,7 @@ class Solution(object):
             #g = actual distance travelled (depth)
             f, g, board, zero, ops = heapq.heappop(pq)
             if board == target: return ops
-            #if board == target_wrong: return -1
+            if board == target_wrong: return -1
             if f > cost[board]: continue
 
             for delta in (-1, 1, -C, C):

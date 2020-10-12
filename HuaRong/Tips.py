@@ -5,7 +5,8 @@ class Tips(QtWidgets.QLabel):
     def __init__(self,Dialog):
         super().__init__(Dialog)
         self.setText("Tips")
-        self.setGeometry(QtCore.QRect(610, 90, 130, 130))
+        self.setGeometry(QtCore.QRect(610, 90, 130, 500))
+        self.setWordWrap(True)
         self.setScaledContents(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)

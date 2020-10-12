@@ -76,8 +76,18 @@ class gridLayoutWidget(QtWidgets.QWidget):
             print("this is switch")
             print(self.swap)
             self.switch(self.swap[0],self.swap[1])
+            if(SloveTest.Solution(self.blocks,self.zero_column,self.zero_row).slidingPuzzle() == "-1"):
+                print("请输入要交换的数字1")
+                swap1 = input()
+                print("请输入要交换的数字2")
+                swap2 = input()
+                #self.swap = [swap1,swap2]
+                self.switch(swap1,swap2)
+            else:
+                self.swap = [1,1]
+
         #求解
-        print("The solution is " + str(SloveTest.Solution(self.blocks,self.zero_column,self.zero_row).slidingPuzzle()))
+        
         if self.checkResult():
             QMessageBox.Ok == QMessageBox.information(self, '挑战结果', '恭喜您完成挑战！')
 
@@ -125,10 +135,10 @@ class gridLayoutWidget(QtWidgets.QWidget):
     #强制交换
     def switch(self,block1,block2):
         #判断是否有可移动方块
-        block1_row = block1 // 3
-        block1_column = block1 % 3
-        block2_row = block2 // 3
-        block2_column = block2 % 3
+        block1_row = (block1-1) // 3
+        block1_column = (block1-1) % 3
+        block2_row = (block2-1) // 3
+        block2_column = (block2-1) % 3
         if(block1_row == self.zero_row and block1_column == self.zero_column ):
             self.zero_row = block2_row
             self.zero_column = block2_column
