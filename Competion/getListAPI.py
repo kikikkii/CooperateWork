@@ -1,6 +1,7 @@
 import requests
 import json
 
+#获得题目uuid,比赛用
 def getList():
     url = "http://47.102.118.1:8089/api/challenge/list"
     r = requests.get(url)

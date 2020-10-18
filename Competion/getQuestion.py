@@ -5,6 +5,8 @@ import os
 from PIL import Image
 from Competion import getListAPI
 
+
+#获得题目，比赛用
 def getQuestion(i):
     print("----------")
     url = "http://47.102.118.1:8089/api/challenge/start/"
