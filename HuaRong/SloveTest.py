@@ -8,7 +8,7 @@ class Solution(object):
         self.board = []
         self.zero_column = 0
         self.zero_row =0
-
+        
         self.zero_column = zero_column
         self.zero_row = zero_row
         t = 0
@@ -50,19 +50,19 @@ class Solution(object):
             #g = actual distance travelled (depth)
             f, g, board, zero, ops = heapq.heappop(pq)
             if board == target: return ops
-            if board == target_wrong: return -1
+            if board == target_wrong: return "-1"
             if f > cost[board]: continue
 
             for delta in (-1, 1, -C, C):
                 tops = ops
                 if delta == -1:
-                    tops += "d"
-                elif delta == 1:
                     tops += "a"
+                elif delta == 1:
+                    tops += "d"
                 elif delta == -C:
-                    tops += "s"
-                elif delta == C:
                     tops += "w"
+                elif delta == C:
+                    tops += "s"
                 nei = zero + delta
                 if abs(zero // C - nei // C) + abs(zero % C - nei % C) != 1:
                     continue
@@ -75,7 +75,7 @@ class Solution(object):
                         cost[board2t] = ncost
                         heapq.heappush(pq, (ncost, g+1, board2t, nei, tops))
 
-        return -1
+        return "-1"
 """
 boards = [[6,5,4],[7,8,3],[9,1,2]]
 S = Solution()

@@ -1,4 +1,5 @@
 import sys
+sys.path.append("..")
 from PyQt5 import QtCore,QtGui,QtWidgets
 from PyQt5.QtGui import QFont, QPalette,QPixmap
 from PyQt5.QtCore import Qt
@@ -6,7 +7,7 @@ import Button as bt
 import HelpButton
 import gridLayoutWidget as glw
 import Tips
-
+import switchUI
 # 用枚举类表示方向
 
 #游戏主体
@@ -36,12 +37,12 @@ class HuaRong(QtWidgets.QWidget):
     def startClick(self):
         dict = self.startButton.click()
         self.gridLayoutWidget = glw.gridLayoutWidget(self.Dialog,dict)
+            
 
     #监听帮助按钮
     def helpClick(self):
         board = self.gridLayoutWidget
         answer = self.helpButton.click(board)
-        #给answer加入换行符
         
         self.tips.setText(answer)
     """description of class"""

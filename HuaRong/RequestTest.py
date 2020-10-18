@@ -5,6 +5,7 @@ import os
 from PIL import Image
 # -*- coding: utf-8 -*-
 
+
 def request():
     print("------------------")
     r = requests.get('http://47.102.118.1:8089/api/problem?stuid=031802615 ')
@@ -22,12 +23,15 @@ def request():
     file.close()
     return dict
 
-def post(uuid,operations,swap):
-    url = "http://47.102.118.1:8089/api/answer"
-    data = {"uuid" : "c6fb77dae95f4bc8b6d3a5b54a293a62",
+def post(board):
+    #url = "http://47.102.118.1:8089/api/answer"
+    url = 'http://47.102.118.1:8089/api/challenge/submit'
+    data = {"uuid" : board.uuid,
+            "teamid":3,
+            "token":"66dd62b3-6628-485d-ad2c-1f1f445382bf",
             "answer" : {
-                "operations": "wsaaadasdadadaws",
-                "swap": [1,2]
+                "operations": board.operates,
+                "swap": board.change
                 }
             }
     print(data)
@@ -40,5 +44,13 @@ def post(uuid,operations,swap):
 if __name__ == "__main__":
     post(1,1,1)
 
-
+"""{
+    "uuid": "ac09e60d-4089-44d6-94af-xxxxxxx",
+    "teamid": 2,
+    "token": "123123",
+    "answer": {
+        "operations": "d",
+        "swap": []
+    }
+}"""
 

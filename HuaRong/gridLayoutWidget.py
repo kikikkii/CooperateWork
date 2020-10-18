@@ -2,12 +2,14 @@ import sys
 sys.path.append("..")
 import PicturesMatch.PicturesMatch as PM
 from PyQt5 import QtCore,QtGui,QtWidgets
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QMessageBox,QDialog
+from PyQt5.QtCore import Qt,QThread
 import gridLayout as gl
 import Label
 import SloveTest
 from enum import IntEnum
+import switchUI
+import RequestTest
 
 class Direction(IntEnum):
     UP = 0
@@ -23,8 +25,9 @@ class gridLayoutWidget(QtWidgets.QWidget):
         self.gridLayout = gl.gridLayout(self)
         #题目号初始化
         self.uuid = dict['uuid']
-        self.step = dict['step']
-        self.swap = dict['swap']
+        self.step = dict['data']['step']
+        self.swap = dict['data']['swap']
+        self.change = []
         self.blocks = []
         self.imgList = []
         self.zero_row = 0
@@ -62,13 +65,13 @@ class gridLayoutWidget(QtWidgets.QWidget):
     def keyPressEvent(self, event):
         key = event.key()
         if(key == Qt.Key_Up or key == Qt.Key_W):
-            self.move(Direction.UP)
-        if(key == Qt.Key_Down or key == Qt.Key_S):
             self.move(Direction.DOWN)
+        if(key == Qt.Key_Down or key == Qt.Key_S):
+            self.move(Direction.UP)
         if(key == Qt.Key_Left or key == Qt.Key_A):
-            self.move(Direction.LEFT)
-        if(key == Qt.Key_Right or key == Qt.Key_D):
             self.move(Direction.RIGHT)
+        if(key == Qt.Key_Right or key == Qt.Key_D):
+            self.move(Direction.LEFT)
         self.updatePanel()
         print(self.zero_column,self.zero_row)
         #交换方块
@@ -77,18 +80,19 @@ class gridLayoutWidget(QtWidgets.QWidget):
             print(self.swap)
             self.switch(self.swap[0],self.swap[1])
             if(SloveTest.Solution(self.blocks,self.zero_column,self.zero_row).slidingPuzzle() == "-1"):
-                print("请输入要交换的数字1")
-                swap1 = input()
-                print("请输入要交换的数字2")
-                swap2 = input()
+                #swap1 = input("请输入要交换的数字1")
+                #swap2 = input("请输入要交换的数字2")
                 #self.swap = [swap1,swap2]
-                self.switch(swap1,swap2)
+                t = switchUI.Ui_Form(self)
+                t.setupUi(t)
+                t.exec()
+                #self.switch(swap1,swap2)
             else:
                 self.swap = [1,1]
 
-        #求解
         
         if self.checkResult():
+            RequestTest.post(self)
             QMessageBox.Ok == QMessageBox.information(self, '挑战结果', '恭喜您完成挑战！')
 
     # 方块移动算法
@@ -100,7 +104,7 @@ class gridLayoutWidget(QtWidgets.QWidget):
                 self.blocks[self.zero_row][self.zero_column] = self.blocks[self.zero_row + 1][self.zero_column]
                 self.blocks[self.zero_row + 1][self.zero_column] = temp
                 self.zero_row += 1
-                self.operates += "w"
+                self.operates += "s"
                 print(self.operates)
         if(direction == Direction.DOWN): # 下
             if self.zero_row != 0:
@@ -108,7 +112,7 @@ class gridLayoutWidget(QtWidgets.QWidget):
                 self.blocks[self.zero_row][self.zero_column] = self.blocks[self.zero_row - 1][self.zero_column]
                 self.blocks[self.zero_row - 1][self.zero_column] = temp
                 self.zero_row -= 1
-                self.operates += "s"
+                self.operates += "w"
                 print(self.operates)
         if(direction == Direction.LEFT): # 左
             if self.zero_column != 2:
@@ -116,7 +120,7 @@ class gridLayoutWidget(QtWidgets.QWidget):
                 self.blocks[self.zero_row][self.zero_column] = self.blocks[self.zero_row][self.zero_column + 1]
                 self.blocks[self.zero_row][self.zero_column + 1] = temp
                 self.zero_column += 1
-                self.operates += "a"
+                self.operates += "d"
                 print(self.operates)
         if(direction == Direction.RIGHT): # 右
             if self.zero_column != 0:
@@ -124,7 +128,7 @@ class gridLayoutWidget(QtWidgets.QWidget):
                 self.blocks[self.zero_row][self.zero_column] = self.blocks[self.zero_row][self.zero_column - 1]
                 self.blocks[self.zero_row][self.zero_column - 1] = temp
                 self.zero_column -= 1
-                self.operates += "d"
+                self.operates += "a"
                 print(self.operates)
     #更新棋盘，检查是否完成
     def updatePanel(self):
