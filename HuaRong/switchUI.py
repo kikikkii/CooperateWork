@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
+#主动交换函数窗口类
 class Ui_Form(QtWidgets.QDialog):
     def __init__(self,board):
         super().__init__()
@@ -39,6 +39,7 @@ class Ui_Form(QtWidgets.QDialog):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "选择交换的位置"))
@@ -47,6 +48,7 @@ class Ui_Form(QtWidgets.QDialog):
         self.label.setText(_translate("Form", "输入要交换的位置"))
         self.label_2.setText(_translate("Form", "输入要交换的位置"))
         self.pushButton.setText(_translate("Form", "确定"))
+
 
     def click(self):
         print("this is click")

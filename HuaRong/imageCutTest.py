@@ -2,6 +2,7 @@ from PIL import Image
 import sys
 import os
 
+#将图片切为九宫格的函数
 def cut_image(image):
     width,height = image.size
     print(width)
@@ -17,6 +18,8 @@ def cut_image(image):
     print(image_list)
     return image_list
 
+
+#保存图片的函数
 def save_images(image_list,savePath = ""):
     index = 1
     for image in image_list:
@@ -27,6 +30,8 @@ def save_images(image_list,savePath = ""):
         index += 1
     return
 
+
+#保存图片的函数2
 def save_images2(image_list):
     index = 1
     for image in image_list:

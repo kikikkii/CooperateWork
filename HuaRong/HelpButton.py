@@ -11,6 +11,8 @@ class HelpButton(QtWidgets.QPushButton):
         self.setGeometry(QtCore.QRect(160 * 2, 430 , 111, 61))
         self.setText("Help")
 
+        
+    #按键响应函数
     def click(self,board):
         print("HelpButton clicked")
         theSolution = str(SloveTest.Solution(board.blocks,board.zero_column,board.zero_row).slidingPuzzle())

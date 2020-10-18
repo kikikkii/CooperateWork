@@ -5,7 +5,7 @@ import os
 from PIL import Image
 # -*- coding: utf-8 -*-
 
-
+#request函数，正常题目用
 def request():
     print("------------------")
     r = requests.get('http://47.102.118.1:8089/api/problem?stuid=031802615 ')
@@ -23,9 +23,24 @@ def request():
     file.close()
     return dict
 
+
+#post函数
 def post(board):
+    #题目用
     #url = "http://47.102.118.1:8089/api/answer"
+    """
+    题目用数据
+    data = {
+        "uuid":"7fc1df54827345c7aa3e54c3e13a2bd1",
+        "answer":{
+            "operations": "wsaaadasdadadaws",
+            "swap": [1,2]
+    `  }
+    }`
+    """
+    #比赛用
     url = 'http://47.102.118.1:8089/api/challenge/submit'
+
     data = {"uuid" : board.uuid,
             "teamid":3,
             "token":"66dd62b3-6628-485d-ad2c-1f1f445382bf",
@@ -40,6 +55,7 @@ def post(board):
     res = requests.post(url=url,data = js,headers={'Content-Type': 'application/json'})
     print(res.json())
     print(res.status_code)
+
 
 if __name__ == "__main__":
     post(1,1,1)

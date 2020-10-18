@@ -17,7 +17,10 @@ class Direction(IntEnum):
     LEFT = 2
     RIGHT = 3
 
+
 class gridLayoutWidget(QtWidgets.QWidget):
+
+    #初始化图片
     def __init__(self,Dialog,dict):
         super().__init__(Dialog)
         self.setObjectName("gridLayoutWidget")
@@ -62,6 +65,8 @@ class gridLayoutWidget(QtWidgets.QWidget):
         print(Total)
         self.show()
 
+
+    #按键响应函数
     def keyPressEvent(self, event):
         key = event.key()
         if(key == Qt.Key_Up or key == Qt.Key_W):
@@ -94,6 +99,7 @@ class gridLayoutWidget(QtWidgets.QWidget):
         if self.checkResult():
             RequestTest.post(self)
             QMessageBox.Ok == QMessageBox.information(self, '挑战结果', '恭喜您完成挑战！')
+
 
     # 方块移动算法
     # 附加了输出每一步的操作内容
@@ -136,6 +142,7 @@ class gridLayoutWidget(QtWidgets.QWidget):
             for column in range(3):
                 self.gridLayout.addWidget((self.blocks[row][column]), row, column)
 
+
     #强制交换
     def switch(self,block1,block2):
         #判断是否有可移动方块
@@ -153,7 +160,6 @@ class gridLayoutWidget(QtWidgets.QWidget):
         temp = self.blocks[block1_row][block1_column]
         self.blocks[block1_row][block1_column] = self.blocks[block2_row][block2_column]
         self.blocks[block2_row][block2_column] = temp
-
 
 
     #检查是否完成

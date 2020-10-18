@@ -4,7 +4,9 @@ import PicturesMatch
 from PyQt5 import QtCore,QtGui,QtWidgets
 from PyQt5.QtGui import QFont, QPalette,QPixmap
 
+#Label控件，显示题目图片
 class Label(QtWidgets.QLabel):
+    #初始化函数
     def __init__(self,gridLayoutWidget,i):
         super().__init__(gridLayoutWidget)
         self.number = i + 1 #序号
@@ -21,5 +23,6 @@ class Label(QtWidgets.QLabel):
         self.row = int(i / 3)
         self.column = i % 3
 
+    #获得Img
     def getImg(self):
         return self.pixmap

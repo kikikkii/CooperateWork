@@ -18,8 +18,13 @@ class Button(QtWidgets.QPushButton):
 
     def click(self):
         print("Button clicked")
+        
+        #作业用接口
         #dict = RequestTest.request()
+
+        #比赛用接口
         dict = getQuestion.getQuestion(self.num)
+
         self.num += 1
         Img = Image.open(".\imgtest.jpg")
         Img_list = imageCutTest.cut_image(Img)
