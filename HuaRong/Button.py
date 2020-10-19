@@ -20,10 +20,10 @@ class Button(QtWidgets.QPushButton):
         print("Button clicked")
         
         #作业用接口
-        #dict = RequestTest.request()
+        dict = RequestTest.request()
 
         #比赛用接口
-        dict = getQuestion.getQuestion(self.num)
+        #dict = getQuestion.getQuestion(self.num)
 
         self.num += 1
         Img = Image.open(".\imgtest.jpg")

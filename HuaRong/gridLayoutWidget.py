@@ -28,8 +28,8 @@ class gridLayoutWidget(QtWidgets.QWidget):
         self.gridLayout = gl.gridLayout(self)
         #题目号初始化
         self.uuid = dict['uuid']
-        self.step = dict['data']['step']
-        self.swap = dict['data']['swap']
+        self.step = dict['step']
+        self.swap = dict['swap']
         self.change = []
         self.blocks = []
         self.imgList = []

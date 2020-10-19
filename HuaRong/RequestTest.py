@@ -27,19 +27,19 @@ def request():
 #post函数
 def post(board):
     #题目用
-    #url = "http://47.102.118.1:8089/api/answer"
-    """
-    题目用数据
+    url = "http://47.102.118.1:8089/api/answer"
+    
+    #题目用数据
     data = {
-        "uuid":"7fc1df54827345c7aa3e54c3e13a2bd1",
+        "uuid":board.uuid,
         "answer":{
-            "operations": "wsaaadasdadadaws",
-            "swap": [1,2]
-    `  }
-    }`
+            "operations":board.operates,
+            "swap": board.change
+       }
+    }
     """
     #比赛用
-    url = 'http://47.102.118.1:8089/api/challenge/submit'
+    #url = 'http://47.102.118.1:8089/api/challenge/submit'
 
     data = {"uuid" : board.uuid,
             "teamid":3,
@@ -49,6 +49,7 @@ def post(board):
                 "swap": board.change
                 }
             }
+    """
     print(data)
     js = json.dumps(data)
     print(js)
